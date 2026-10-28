@@ -148,13 +148,10 @@ namespace ReaLTaiizor.Controls
             set
             {
                 field = value;
-                if (field == MaterialButtonDensity.Dense)
+                if (AutoSize)
                 {
-                    Size = new Size(Size.Width, (int)(HEIGHTDENSE * ScaleFactor));
-                }
-                else
-                {
-                    Size = new Size(Size.Width, (int)(HEIGHTDEFAULT * ScaleFactor));
+                    int height = field == MaterialButtonDensity.Dense ? HEIGHTDENSE : HEIGHTDEFAULT;
+                    Size = new Size(Size.Width, (int)(height * ScaleFactor));
                 }
 
                 Invalidate();
@@ -680,12 +677,13 @@ namespace ReaLTaiizor.Controls
             {
                 s.Width = (int)Math.Ceiling(_textSize.Width);
                 s.Width += extra;
-                s.Height = (int)(HEIGHTDEFAULT * ScaleFactor);
+                int height = Density == MaterialButtonDensity.Dense ? HEIGHTDENSE : HEIGHTDEFAULT;
+                s.Height = (int)(height * ScaleFactor);
             }
             else
             {
                 s.Width += extra;
-                s.Height = (int)(HEIGHTDEFAULT * ScaleFactor);
+                s.Height = Height;
             }
             if (Icon != null && Text.Length == 0 && s.Width < (int)(MINIMUMWIDTHICONONLY * ScaleFactor))
             {
